@@ -1,4 +1,4 @@
-import { type ReactNode, useRef, Suspense, useMemo } from 'react';
+import { type ReactNode, useRef, Suspense, useMemo, useState } from 'react';
 import { Disclosure, Listbox } from '@headlessui/react';
 import { defer, type LoaderArgs } from '@shopify/remix-oxygen';
 import {
@@ -213,10 +213,18 @@ export function ProductForm() {
     quantity: 1,
   };
 
+  const [groupName, setGroupName] = useState('');
+
   return (
     <div className="grid gap-10">
       <div className="grid gap-4">
         <div>Name of Group</div>
+        <input
+          type="text"
+          name="name-of-group"
+          value={groupName}
+          onChange={(event) => setGroupName(event.target.value)}
+        />
         <ProductOptions
           options={product.options}
           searchParamsWithDefaults={searchParamsWithDefaults}
@@ -233,6 +241,12 @@ export function ProductForm() {
                   {
                     merchandiseId: selectedVariant.id,
                     quantity: 1,
+                    attributes: [
+                      {
+                        key: 'Group Name',
+                        value: groupName,
+                      },
+                    ],
                   },
                 ]}
                 variant="primary"

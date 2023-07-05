@@ -262,6 +262,13 @@ function CartLineItem({line}: {line: CartLine}) {
               </Text>
             ))}
           </div>
+          <div className="grid pb-2">
+            {(attributes || []).map((attribute) => (
+              <Text color="subtle" key={attribute.key}>
+                {attribute.key}: {attribute.value}
+              </Text>
+            ))}
+          </div>
 
           <div className="flex items-center gap-2">
             <div className="flex justify-start text-copy">
